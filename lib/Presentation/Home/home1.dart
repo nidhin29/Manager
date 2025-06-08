@@ -742,7 +742,7 @@ class _ExpenseChartState extends State<HomePage> {
         show: true,
         drawVerticalLine: true,
         verticalInterval: (daysInMonth / 4).toDouble(),
-        horizontalInterval: maxY / 5,
+        horizontalInterval: (maxY / 5) == 0 ? 1 : maxY / 5,
         getDrawingHorizontalLine: (_) =>
             FlLine(color: Colors.grey.withOpacity(0.2), strokeWidth: 1),
         getDrawingVerticalLine: (_) =>
@@ -770,7 +770,7 @@ class _ExpenseChartState extends State<HomePage> {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 50, // Slightly increased for better spacing
-            interval: (maxY - minY) / 2.0, // Ensure proper spacing
+            interval: ((maxY - minY) / 2.0) == 0 ? 1 : (maxY - minY) / 2.0, // Ensure proper spacing
             getTitlesWidget: (value, _) {
               // Show formatted values
               return Text(formatCurrency(value),
