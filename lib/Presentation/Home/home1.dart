@@ -365,20 +365,12 @@ class _ExpenseChartState extends State<HomePage> {
   double predictNextMonthExpense(List<FlSpot> expenseData) {
     if (expenseData.isEmpty) return 0.0;
 
-    // Calculate the total expense for the current month
-    double totalExpense = expenseData.fold(
-        0, (previousValue, element) => previousValue + element.y);
+    List<double> dailyExpenses = expenseData.map((e) => e.y).toList()..sort();
+    double median = dailyExpenses[dailyExpenses.length ~/ 2];
+    int daysInNextMonth =
+        DateTime(DateTime.now().year, DateTime.now().month + 1, 0).day;
 
-    // Calculate the average daily expense
-    int daysInCurrentMonth = DateTime.now().day;
-    double averageDailyExpense = totalExpense / daysInCurrentMonth;
-
-    // Get the number of days in the next month
-    DateTime now = DateTime.now();
-    int daysInNextMonth = DateTime(now.year, now.month + 1, 0).day;
-
-    // Predict the total expense for the next month
-    return averageDailyExpense * daysInNextMonth;
+    return median * daysInNextMonth;
   }
 
   @override
@@ -408,6 +400,68 @@ class _ExpenseChartState extends State<HomePage> {
     });
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: AppBar(
+          backgroundColor: Colors.black,
+          iconTheme: const IconThemeData(color: Colors.white),
+          elevation: 0,
+          flexibleSpace: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Hello there',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    TokenManager().name ?? '',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 30.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      endDrawer: Drawer(
+        backgroundColor: Colors.grey[900],
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Colors.teal),
+              child: Text(
+                'Manager',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.sp,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.white),
+              title: Text('Logout',
+                  style: TextStyle(color: Colors.white, fontSize: 18.sp)),
+              onTap: () {
+                BlocProvider.of<SignInCubit>(context).signOut();
+              },
+            ),
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -437,39 +491,6 @@ class _ExpenseChartState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 kheight10,
-                kheight20,
-                kheight20,
-                kheight20,
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Hello there',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold)),
-                          Text(TokenManager().name ?? '',
-                              style: TextStyle(
-                                  color: Colors.teal,
-                                  fontSize: 30.sp,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          BlocProvider.of<SignInCubit>(context).signOut();
-                        },
-                        icon: const Icon(Icons.logout),
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
                 kheight20,
                 kheight20,
                 SizedBox(
@@ -770,7 +791,9 @@ class _ExpenseChartState extends State<HomePage> {
           sideTitles: SideTitles(
             showTitles: true,
             reservedSize: 50, // Slightly increased for better spacing
-            interval: ((maxY - minY) / 2.0) == 0 ? 1 : (maxY - minY) / 2.0, // Ensure proper spacing
+            interval: ((maxY - minY) / 2.0) == 0
+                ? 1
+                : (maxY - minY) / 2.0, // Ensure proper spacing
             getTitlesWidget: (value, _) {
               // Show formatted values
               return Text(formatCurrency(value),
