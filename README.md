@@ -122,7 +122,10 @@ lib/
 - **Google Fonts** integration
 - **Material Design 3** components
 
----
+## Usage Video
+
+https://github.com/user-attachments/assets/6728b5a9-00c5-45d7-bfbd-4fe4d1057f96
+
 
 ## � Getting Started
 
