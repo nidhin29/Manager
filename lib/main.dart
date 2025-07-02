@@ -17,19 +17,20 @@ import 'package:manager/Domain/Accounts/Transaction/transaction_model.dart';
 import 'package:manager/Presentation/Splash/splash.dart';
 import 'package:manager/firebase_options.dart';
 
-
-
 final Telephony telephony = Telephony.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
+  // Initialize Firebase only if it hasn't been initialized yet
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
+  
   await configureInjection(Environment.prod);
   await telephony.requestPhoneAndSmsPermissions;
   runApp(const MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -40,22 +41,22 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<SignInCubit>(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<CategoryCubit>(),
         ),
-                 BlocProvider(
+        BlocProvider(
           create: (context) => getIt<CreateCubit>(),
         ),
-          BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AccountsCubit>(),
         ),
-          BlocProvider(
+        BlocProvider(
           create: (context) => getIt<AccountscreateCubit>(),
         ),
-           BlocProvider(
+        BlocProvider(
           create: (context) => getIt<TransactioncreateCubit>(),
         ),
-           BlocProvider(
+        BlocProvider(
           create: (context) => getIt<BudgetCubit>(),
         )
       ],
@@ -79,8 +80,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 TransactionModel? parseMessage(String? messageBody) {
   if (messageBody == null) return null;
 
@@ -88,7 +87,7 @@ TransactionModel? parseMessage(String? messageBody) {
   // Extract amount using regex. This example looks for a currency symbol followed by digits.
   RegExp amountRegex = RegExp(r'(₹|\$)\s?(\d+(?:\.\d{1,2})?)');
   RegExpMatch? amountMatch = amountRegex.firstMatch(messageBody);
-  
+
   if (amountMatch != null) {
     double amount = double.parse(amountMatch.group(2)!);
 
@@ -106,14 +105,14 @@ TransactionModel? parseMessage(String? messageBody) {
     // Extract date using regex. This example looks for a date in the format dd/MM/yyyy.
     RegExp dateRegex = RegExp(r'(\d{2}/\d{2}/\d{4})');
     RegExpMatch? dateMatch = dateRegex.firstMatch(messageBody);
-    
+
     DateTime date;
     if (dateMatch != null) {
       date = DateFormat('dd/MM/yyyy').parse(dateMatch.group(1)!);
     } else {
       date = DateTime.now();
     }
-  
+
     return TransactionModel(
       purpose: merchant,
       amount: amount,
@@ -121,7 +120,6 @@ TransactionModel? parseMessage(String? messageBody) {
       category: 'Online Shopping',
       type: 'expense',
     );
-
   }
 
   return null;

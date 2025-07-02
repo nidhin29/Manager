@@ -41,6 +41,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
+    // SECURITY WARNING: API key is exposed - consider using environment variables in production
     apiKey: 'AIzaSyAH2y59Rq0Qw38NHKSCvJo72wOAhUsLIx8',
     appId: '1:1046332415691:web:59cb11e9b57cad7a85854e',
     messagingSenderId: '1046332415691',
@@ -51,6 +52,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
+    // SECURITY WARNING: API key is exposed - consider using environment variables in production
     apiKey: 'AIzaSyC7Hl_rJzjbV5_Nn-z_9Nq_j7Jp8nKmCDo',
     appId: '1:1046332415691:android:f6d9297f3c68edb485854e',
     messagingSenderId: '1046332415691',
@@ -59,6 +61,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
+    // SECURITY WARNING: API key is exposed - consider using environment variables in production
     apiKey: 'AIzaSyCB_miYuWqogLIvVTXsyI6iW4win6BLrqI',
     appId: '1:1046332415691:ios:89dd88491fcf146485854e',
     messagingSenderId: '1046332415691',
@@ -68,6 +71,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
+    // SECURITY WARNING: API key is exposed - consider using environment variables in production
     apiKey: 'AIzaSyCB_miYuWqogLIvVTXsyI6iW4win6BLrqI',
     appId: '1:1046332415691:ios:89dd88491fcf146485854e',
     messagingSenderId: '1046332415691',
@@ -77,6 +81,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
+    // SECURITY WARNING: API key is exposed - consider using environment variables in production
     apiKey: 'AIzaSyAH2y59Rq0Qw38NHKSCvJo72wOAhUsLIx8',
     appId: '1:1046332415691:web:108543010bfe246c85854e',
     messagingSenderId: '1046332415691',
