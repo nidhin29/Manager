@@ -20,7 +20,6 @@
 ### 💸 Smart Transaction Tracking
 - **Automatic SMS parsing** to detect bank transactions
 - Manual transaction entry for **Income** and **Expense**
-- **Update** and **Delete** existing transactions
 - **Category-based** transaction classification
 - Real-time balance updates
 
@@ -29,7 +28,6 @@
 - **Income vs Expense** analysis
 - **Monthly spending trends**
 - **Category-wise breakdown** of expenses
-- **Budget vs Actual** spending comparisons
 - **Predictive analytics** for future expenses
 
 ### 🏷️ Category Management
