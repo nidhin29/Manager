@@ -205,7 +205,7 @@ lib/
 ## � Download & Try
 
 **Ready to test the app?**
-👉 [Download APK from Google Drive](https://drive.google.com/drive/folders/1uTdAV-cj89CNWT-xPabvBfS2WHZ5uA1E?usp=drive_link)
+👉 [Download APK from Google Drive](https://drive.google.com/file/d/1LN-xlHtmg9DuDbsaV-4rvzkEzhEs3kcx/view?usp=drive_link)
 
 ---
 
