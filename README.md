@@ -123,6 +123,10 @@ lib/
 - **Material Design 3** components
 
 ---
+## Usage Video
+
+https://github.com/user-attachments/assets/b5edb0e3-58e6-44c2-acc2-480368c93fcc
+
 
 ## � Getting Started
 
